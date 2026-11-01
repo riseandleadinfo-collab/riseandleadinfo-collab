@@ -1,0 +1,787 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Rise &amp; Lead Demo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Layout: one long scroll, big sections for a projector. Warm paper ground, navy ink, gold used only for emphasis. */
+  :root{
+    --paper:#faf5ea;
+    --paper-dim:#f1e9d8;
+    --ink:#1c2a44;
+    --ink-soft:#4a5670;
+    --gold:#c08a2e;
+    --gold-deep:#8a5f14;
+    --teal:#2c6b64;
+    --line:#e2d6ba;
+    --card:#ffffff;
+    --on-gold:#ffffff;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161b29;
+      --paper-dim:#1d2334;
+      --ink:#f2ece0;
+      --ink-soft:#b9bfd4;
+      --gold:#e0a940;
+      --gold-deep:#f0bd5e;
+      --teal:#6fbdb3;
+      --line:#323a52;
+      --card:#1f2536;
+      --on-gold:#161b29;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161b29;
+    --paper-dim:#1d2334;
+    --ink:#f2ece0;
+    --ink-soft:#b9bfd4;
+    --gold:#e0a940;
+    --gold-deep:#f0bd5e;
+    --teal:#6fbdb3;
+    --line:#323a52;
+    --card:#1f2536;
+    --on-gold:#161b29;
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:96px;}
+  @media (prefers-reduced-motion: no-preference){ html{scroll-behavior:smooth;} }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size:17px;
+    line-height:1.6;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0 0 auto;
+    height:env(safe-area-inset-top, 0px);
+    z-index:30;
+    background:var(--paper);
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:600;
+    text-wrap:balance;
+    margin:0;
+    line-height:1.08;
+  }
+  h2{font-size:clamp(1.9rem, 4vw, 2.7rem);}
+  h3{font-size:1.2rem;line-height:1.25;}
+  p{margin:0;}
+  a{color:inherit;}
+  img{display:block;}
+  button{font:inherit;color:inherit;}
+  :focus-visible{outline:3px solid var(--gold);outline-offset:3px;}
+
+  .wrap{
+    max-width:1120px;
+    margin-inline:auto;
+    padding-left:max(16px, env(safe-area-inset-left, 0px));
+    padding-right:max(16px, env(safe-area-inset-right, 0px));
+  }
+  .eyebrow{
+    display:block;
+    font-size:.74rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+    font-weight:600;
+    margin-bottom:12px;
+  }
+  .lede{font-size:1.18rem;color:var(--ink-soft);max-width:56ch;}
+
+  /* ---------- demo banner + header ---------- */
+  .demo-strip{
+    background:var(--ink);
+    color:var(--paper);
+    font-size:.82rem;
+    padding-block:8px;
+  }
+  .demo-strip .wrap{display:flex;gap:10px 16px;flex-wrap:wrap;align-items:center;justify-content:center;text-align:center;}
+  .demo-strip strong{color:var(--gold);letter-spacing:.08em;text-transform:uppercase;font-size:.72rem;}
+  .demo-strip .hint{opacity:.8;}
+
+  header.nav{
+    position:sticky;
+    top:env(safe-area-inset-top, 0px);
+    z-index:20;
+    background:color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px 36px;
+    padding-block:12px;
+  }
+  .brand-group{display:flex;align-items:center;gap:12px;min-width:0;}
+  .logo-slot{
+    flex-shrink:0;
+    width:48px;height:48px;
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--card);
+    border:1px solid var(--line);
+  }
+  .logo-slot img{width:100%;height:100%;object-fit:contain;}
+  .brand{font-family:'Fraunces', Georgia, serif;font-weight:600;font-size:1.1rem;line-height:1.2;}
+  .brand small{
+    display:block;
+    font-family:'Work Sans', sans-serif;
+    font-weight:500;
+    font-size:.6rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+    margin-top:2px;
+  }
+  nav.links{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:.88rem;font-weight:500;}
+  nav.links a{text-decoration:none;color:var(--ink-soft);padding-block:4px;}
+  nav.links a:hover{color:var(--gold-deep);}
+
+  /* ---------- sections ---------- */
+  section{padding-block:76px;}
+  section + section{border-top:1px solid var(--line);}
+  .section-head{max-width:760px;margin-bottom:36px;}
+  .section-head p{margin-top:14px;color:var(--ink-soft);}
+
+  /* hero */
+  .hero{padding-block:64px 72px;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;}
+  .hero h1{font-size:clamp(2.8rem, 6.4vw, 4.6rem);margin-bottom:20px;}
+  .hero h1 em{font-style:italic;color:var(--gold-deep);}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:13px 24px;
+    border-radius:4px;
+    font-weight:600;font-size:.95rem;
+    text-decoration:none;
+    border:1px solid transparent;
+    cursor:pointer;
+    background:none;
+  }
+  .btn-primary{background:var(--gold-deep);color:var(--on-gold);}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-ghost{border-color:var(--ink);color:var(--ink);}
+  .btn-ghost:hover{background:var(--paper-dim);}
+  .hero-photo{margin:0;position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--line);box-shadow:0 22px 44px -26px rgba(28,42,68,.5);}
+  .hero-photo img{width:100%;aspect-ratio:960/580;object-fit:cover;}
+  .hero-photo figcaption{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:28px 16px 12px;
+    font-size:.82rem;color:#fff;
+    background:linear-gradient(to top, rgba(0,0,0,.7), rgba(0,0,0,0));
+  }
+
+  /* story */
+  .story-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start;}
+  .portrait{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;margin-top:28px;}
+  .portrait .frame{
+    width:240px;height:240px;border-radius:50%;overflow:hidden;
+    border:4px solid var(--card);outline:1px solid var(--line);
+    box-shadow:0 16px 32px -18px rgba(28,42,68,.45);
+  }
+  .portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;}
+  .portrait .cap-name{font-family:'Fraunces', serif;font-weight:600;font-size:1.05rem;}
+  .portrait .cap-role{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-deep);font-weight:600;}
+  blockquote{
+    margin:0 0 26px;
+    font-family:'Fraunces', Georgia, serif;
+    font-style:italic;
+    font-size:clamp(1.4rem, 2.6vw, 1.85rem);
+    line-height:1.35;
+    padding-left:22px;
+    border-left:3px solid var(--gold);
+  }
+  .story-text{display:grid;gap:16px;max-width:62ch;}
+  .signoff{font-family:'Fraunces', serif;font-weight:600;font-size:1.15rem;color:var(--gold-deep);}
+
+  /* goal */
+  .goal-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:clamp(24px, 4vw, 48px);
+    display:grid;
+    gap:36px;
+  }
+  .goal-card h2{max-width:20ch;}
+  .tracks{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:20px;}
+  .track{border-top:3px solid var(--gold);padding-top:14px;}
+  .track h3{margin-bottom:6px;}
+  .track p{font-size:.94rem;color:var(--ink-soft);}
+
+  /* criteria */
+  .criteria{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:18px;}
+  .criterion{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:24px;}
+  .criterion h3{margin-bottom:8px;}
+  .criterion p{color:var(--ink-soft);font-size:.96rem;}
+
+  /* stats */
+  .stat-grid{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:18px;}
+  .stat{background:var(--paper-dim);border-radius:8px;padding:26px 22px;display:grid;gap:8px;align-content:start;}
+  .stat .figure{font-family:'Fraunces', serif;font-weight:600;font-size:clamp(2.2rem, 4.4vw, 3.2rem);line-height:1;color:var(--gold-deep);font-variant-numeric:tabular-nums;}
+  .stat .label{font-size:.92rem;color:var(--ink-soft);}
+
+  /* gallery */
+  .gallery{max-width:860px;}
+  .stage{
+    position:relative;
+    aspect-ratio:16/9;
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:var(--paper-dim);
+    box-shadow:0 22px 44px -28px rgba(28,42,68,.5);
+  }
+  .stage img.slide{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;object-position:50% 25%;
+    opacity:0;
+    transition:opacity .7s ease;
+  }
+  .stage img.slide.on{opacity:1;}
+  @media (prefers-reduced-motion: reduce){ .stage img.slide{transition:none;} }
+  .stage-nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:44px;height:44px;border-radius:50%;
+    border:1px solid var(--line);
+    background:color-mix(in srgb, var(--card) 90%, transparent);
+    cursor:pointer;font-size:1.5rem;line-height:1;
+    display:grid;place-items:center;
+  }
+  .stage-nav.prev{left:12px;} .stage-nav.next{right:12px;}
+  .gallery-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;margin-top:14px;font-size:.9rem;color:var(--ink-soft);}
+  .play{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 16px;cursor:pointer;font-weight:500;}
+  .thumbs{display:grid;grid-template-columns:repeat(5, minmax(0,1fr));gap:8px;margin-top:14px;}
+  .thumbs button{padding:0;border:2px solid transparent;border-radius:6px;overflow:hidden;cursor:pointer;background:var(--paper-dim);aspect-ratio:4/3;}
+  .thumbs button img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;}
+  .thumbs button[aria-current="true"]{border-color:var(--gold);}
+  .gallery-note{margin-top:18px;font-size:.9rem;color:var(--ink-soft);max-width:62ch;}
+
+  /* give */
+  .give-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:start;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:clamp(22px, 3.4vw, 36px);}
+  .panel h3{font-size:1.35rem;margin-bottom:6px;}
+  .panel .sub{color:var(--ink-soft);font-size:.94rem;margin-bottom:22px;}
+  fieldset{border:0;margin:0 0 20px;padding:0;min-width:0;}
+  legend{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--ink-soft);padding:0;margin-bottom:10px;}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip input{position:absolute;opacity:0;pointer-events:none;}
+  .chip span{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:76px;padding:11px 18px;
+    border:1.5px solid var(--line);border-radius:6px;
+    font-weight:600;cursor:pointer;background:var(--paper);
+    font-variant-numeric:tabular-nums;
+  }
+  .chip input:checked + span{border-color:var(--gold-deep);background:var(--gold-deep);color:var(--on-gold);}
+  .chip input:focus-visible + span{outline:3px solid var(--gold);outline-offset:2px;}
+  .other-wrap{margin-top:12px;display:flex;align-items:center;gap:8px;}
+  .other-wrap label{font-weight:600;}
+  .other-wrap input{
+    width:140px;padding:10px 12px;font:inherit;
+    border:1.5px solid var(--line);border-radius:6px;
+    background:var(--paper);color:var(--ink);
+  }
+  .summary{margin:4px 0 18px;font-weight:500;}
+  .error{color:#b3261e;font-size:.88rem;margin-top:8px;}
+  :root[data-theme="dark"] .error{color:#ff9a90;}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .error{color:#ff9a90;} }
+  .fine{margin-top:14px;font-size:.8rem;color:var(--ink-soft);}
+  .thanks h3{margin-bottom:10px;}
+  .thanks p{margin-bottom:18px;color:var(--ink-soft);}
+  .side-stack{display:grid;gap:18px;}
+  .side-card{background:var(--paper-dim);border-radius:10px;padding:24px;}
+  .side-card h3{margin-bottom:8px;}
+  .side-card p{font-size:.95rem;color:var(--ink-soft);}
+  .tag{display:inline-block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:999px;margin-bottom:10px;}
+  .tag.soon{background:var(--card);color:var(--ink-soft);border:1px solid var(--line);}
+  .tag.ready{background:var(--teal);color:var(--on-gold);}
+
+  /* link tree */
+  .tree-grid{display:grid;grid-template-columns:1fr minmax(0,340px);gap:56px;align-items:center;}
+  .contact-list{margin-top:26px;display:grid;gap:10px;max-width:420px;}
+  .contact-row{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:10px;font-size:.96rem;}
+  .contact-row span:first-child{color:var(--ink-soft);}
+  .contact-row span:last-child{font-weight:600;font-variant-numeric:tabular-nums;user-select:all;}
+  .phone{
+    width:100%;max-width:340px;margin-inline:auto;
+    border:10px solid var(--ink);border-radius:40px;
+    background:var(--paper);
+    padding:30px 20px 28px;
+    box-shadow:0 30px 60px -30px rgba(28,42,68,.6);
+    text-align:center;
+  }
+  .phone .avatar{width:92px;height:92px;border-radius:50%;margin:0 auto 12px;overflow:hidden;border:2px solid var(--line);}
+  .phone .avatar img{width:100%;height:100%;object-fit:cover;}
+  .phone .t-name{font-family:'Fraunces', serif;font-weight:600;font-size:1.25rem;line-height:1.2;}
+  .phone .t-handle{font-size:.8rem;color:var(--ink-soft);margin-top:2px;}
+  .phone .t-bio{font-size:.84rem;color:var(--ink-soft);margin:12px 4px 18px;}
+  .links-col{display:grid;gap:10px;}
+  .tl{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:13px 16px;border-radius:999px;
+    border:1.5px solid var(--ink);background:var(--card);
+    font-weight:600;font-size:.92rem;cursor:pointer;text-align:left;
+  }
+  .tl small{font-weight:500;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+  .tl.primary{background:var(--gold-deep);border-color:var(--gold-deep);color:var(--on-gold);}
+  .tl.primary small{color:inherit;opacity:.85;}
+  .tl:hover{transform:translateY(-1px);}
+  @media (prefers-reduced-motion: reduce){ .tl:hover{transform:none;} }
+  .toast{
+    margin-top:14px;min-height:2.6em;font-size:.82rem;color:var(--teal);font-weight:500;
+  }
+
+  footer{border-top:1px solid var(--line);padding-block:44px 56px;text-align:center;color:var(--ink-soft);font-size:.88rem;}
+  footer .motto{font-family:'Fraunces', serif;font-weight:600;font-size:1.5rem;color:var(--ink);margin-bottom:8px;}
+
+  /* section rail (desktop only) */
+  .rail{
+    position:fixed;right:max(14px, env(safe-area-inset-right, 0px));top:50%;transform:translateY(-50%);
+    z-index:15;display:none;flex-direction:column;gap:12px;
+  }
+  .rail button{
+    width:12px;height:12px;padding:0;border-radius:50%;
+    border:2px solid var(--ink-soft);background:var(--paper);cursor:pointer;
+  }
+  .rail button[aria-current="true"]{background:var(--gold-deep);border-color:var(--gold-deep);transform:scale(1.25);}
+  @media (min-width:1280px){ .rail{display:flex;} }
+
+  @media (max-width:900px){
+    section{padding-block:56px;}
+    .hero-grid,.story-grid,.give-grid,.tree-grid{grid-template-columns:1fr;gap:36px;}
+    .tracks{grid-template-columns:repeat(2, minmax(0,1fr));}
+    .stat-grid{grid-template-columns:repeat(2, minmax(0,1fr));}
+  }
+  @media (max-width:560px){
+    .criteria{grid-template-columns:1fr;}
+    .tracks{grid-template-columns:1fr;}
+    .thumbs{grid-template-columns:repeat(5, minmax(0,1fr));gap:5px;}
+    .portrait .frame{width:210px;height:210px;}
+  }
+</style>
+
+<div class="demo-strip">
+  <div class="wrap">
+    <strong>Demo preview</strong>
+    <span>Sample version for presentation. The donation flow and link tree are mock-ups, and no payment is taken.</span>
+    <span class="hint">Tip: press the left and right arrow keys to move between sections.</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand-group">
+      <div class="logo-slot"><img src="images/logo.jpg" alt="Rise &amp; Lead logo"></div>
+      <div class="brand">Rise &amp; Lead
+        <small>Sister Marie Bruna Boucard Scholarship Fund</small>
+      </div>
+    </div>
+    <nav class="links" aria-label="Sections">
+      <a href="#welcome">Welcome</a>
+      <a href="#story">Our Story</a>
+      <a href="#goal">Goal</a>
+      <a href="#scholars">Scholars</a>
+      <a href="#give">Give</a>
+      <a href="#linktree">Link Tree</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="rail" id="rail" aria-label="Jump to section"></nav>
+
+<main>
+  <section class="hero" id="welcome" data-title="Welcome">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">501(c)(3) nonprofit &middot; Founded 2017</span>
+        <h1>Rise and <em>Lead</em>.</h1>
+        <p class="lede">We pay the tuition of bright students in Haiti whose families can't. The fund started with a $1,000 gift in memory of one educator who never stopped believing in her students. It hasn't stopped growing since.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#give">Try the donation demo</a>
+          <a class="btn btn-ghost" href="#linktree">See the link tree</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="images/hero-group.jpg" alt="Five scholarship students in their school uniforms, standing together">
+        <figcaption>Some of this year's scholars, recruited from parochial schools across Haiti.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="story" data-title="Our Story">
+    <div class="wrap story-grid">
+      <div>
+        <span class="eyebrow">Why we exist</span>
+        <h2>Named for an Educator who gave everything.</h2>
+        <div class="portrait">
+          <div class="frame"><img src="images/sister-bruna.jpg" alt="Sister Marie Bruna Boucard"></div>
+          <div>
+            <div class="cap-name">Sister Marie Bruna Boucard</div>
+            <div class="cap-role">In memoriam &middot; d. 2010</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <blockquote>She devoted her life to education and guidance, so her students could reach their full potential.</blockquote>
+        <div class="story-text">
+          <p>Sister Marie Bruna Boucard taught in Bel-Air, a crowded neighborhood of Port-au-Prince. She never had children of her own; her students were her life's work. She saw education as the key to success, the one sure way a child could change the course of their own life.</p>
+          <p>On January 12, 2010, the elementary and middle school she led collapsed in Haiti's earthquake. She didn't make it out.</p>
+          <p>A bereavement gift of $1,000 came in her memory. In 2017 her family turned it into a scholarship fund. The first plan was to rebuild what she'd started at her own school. When that school's new leadership couldn't be reached, the mission widened to any bright student held back by money instead of talent.</p>
+          <p class="signoff">Every scholarship we award still carries her name.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="goal" data-title="Goal">
+    <div class="wrap">
+      <div class="goal-card">
+        <div>
+          <span class="eyebrow">Where we're headed</span>
+          <h2>Double the number of students we support, every two years.</h2>
+        </div>
+        <p class="lede">We'll get there by widening what "school" means for the community around it, not only through the classroom.</p>
+        <div class="tracks">
+          <div class="track"><h3>Tuition</h3><p>Full tuition for bright students whose families can't cover it.</p></div>
+          <div class="track"><h3>Afterschool</h3><p>Programs that keep learning going when the school day ends.</p></div>
+          <div class="track"><h3>Night classes</h3><p>A second chance for adults who missed their own.</p></div>
+          <div class="track"><h3>Skills training</h3><p>Practical tools the wider community can use to build a livelihood.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="who" data-title="Who we help">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Who we help</span>
+        <h2>Bright, and in need. That's the whole bar.</h2>
+      </div>
+      <div class="criteria">
+        <div class="criterion"><h3>Recruited through parochial schools</h3><p>We partner with parish and parochial schools across Haiti, and in the Dominican Republic, to find students who deserve a shot.</p></div>
+        <div class="criterion"><h3>Demonstrated financial need</h3><p>Scholarships go to families who cannot cover tuition on their own. It is the difference between school and no school.</p></div>
+        <div class="criterion"><h3>Academic excellence</h3><p>Every scholar is chosen for real academic promise, not just circumstance.</p></div>
+        <div class="criterion"><h3>Performance keeps the award</h3><p>Scholars maintain superior performance year after year to stay in the program. It is a partnership, not a handout.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="impact" data-title="Impact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Our impact</span>
+        <h2>What one memory turned into.</h2>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><div class="figure">10&ndash;15</div><div class="label">tuitions covered every year, since the program began</div></div>
+        <div class="stat"><div class="figure">2017</div><div class="label">the year we became a registered 501(c)(3)</div></div>
+        <div class="stat"><div class="figure">1</div><div class="label">protégé now studying at a university in Europe</div></div>
+        <div class="stat"><div class="figure">$1,000</div><div class="label">the bereavement gift that started it, in Sister Bruna's name</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scholars" data-title="Scholars">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Our scholars</span>
+        <h2>Every face here is a reason we keep going.</h2>
+      </div>
+      <div class="gallery" id="gallery">
+        <div class="stage" id="stage">
+          <img class="slide on" src="images/scholar-01.jpg" alt="Scholarship recipient in school uniform, photo 1 of 10">
+          <img class="slide" src="images/scholar-02.jpg" alt="Scholarship recipient in school uniform, photo 2 of 10">
+          <img class="slide" src="images/scholar-03.jpg" alt="Scholarship recipient in school uniform, photo 3 of 10">
+          <img class="slide" src="images/scholar-04.jpg" alt="Scholarship recipient in school uniform, photo 4 of 10">
+          <img class="slide" src="images/scholar-05.jpg" alt="Scholarship recipient in school uniform, photo 5 of 10">
+          <img class="slide" src="images/scholar-06.jpg" alt="Scholarship recipient in school uniform, photo 6 of 10">
+          <img class="slide" src="images/scholar-07.jpg" alt="Scholarship recipient in school uniform, photo 7 of 10">
+          <img class="slide" src="images/scholar-08.jpg" alt="Scholarship recipient in school uniform, photo 8 of 10">
+          <img class="slide" src="images/scholar-09.jpg" alt="Scholarship recipient in school uniform, photo 9 of 10">
+          <img class="slide" src="images/scholar-10.jpg" alt="Scholarship recipient in school uniform, photo 10 of 10">
+          <button type="button" class="stage-nav prev" id="gPrev" aria-label="Previous scholar photo">&#8249;</button>
+          <button type="button" class="stage-nav next" id="gNext" aria-label="Next scholar photo">&#8250;</button>
+        </div>
+        <div class="gallery-bar">
+          <span id="gCount" aria-live="polite">Scholar 1 of 10</span>
+          <button type="button" class="play" id="gPlay" aria-pressed="false">Pause</button>
+        </div>
+        <div class="thumbs" id="thumbs"></div>
+        <p class="gallery-note">Names stay private out of respect for our students. Every one of them is real and currently enrolled.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="give" data-title="Give">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Get involved</span>
+        <h2>Three ways to help a student rise.</h2>
+        <p>Try the donation flow below. It shows how giving will feel on the live site. Nothing is charged or saved.</p>
+      </div>
+      <div class="give-grid">
+        <div class="panel" id="donatePanel">
+          <form id="donateForm" novalidate>
+            <h3>Donate</h3>
+            <p class="sub">Sample giving levels for this demo. Final amounts and the payment provider are still to be chosen.</p>
+            <fieldset>
+              <legend>Frequency</legend>
+              <div class="chips">
+                <label class="chip"><input type="radio" name="freq" value="one time" checked><span>One time</span></label>
+                <label class="chip"><input type="radio" name="freq" value="monthly"><span>Monthly</span></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Amount (USD)</legend>
+              <div class="chips">
+                <label class="chip"><input type="radio" name="amt" value="25"><span>$25</span></label>
+                <label class="chip"><input type="radio" name="amt" value="50" checked><span>$50</span></label>
+                <label class="chip"><input type="radio" name="amt" value="100"><span>$100</span></label>
+                <label class="chip"><input type="radio" name="amt" value="250"><span>$250</span></label>
+                <label class="chip"><input type="radio" name="amt" value="other"><span>Other</span></label>
+              </div>
+              <div class="other-wrap" id="otherWrap" hidden>
+                <label for="otherAmt">Amount $</label>
+                <input type="number" id="otherAmt" inputmode="decimal" min="1" step="1" placeholder="75">
+              </div>
+              <div class="error" id="amtError" role="alert" hidden>Enter an amount of $1 or more.</div>
+            </fieldset>
+            <p class="summary" id="summary" aria-live="polite"></p>
+            <button type="submit" class="btn btn-primary" id="giveBtn">Give (demo)</button>
+            <p class="fine">No card details are collected on this page.</p>
+          </form>
+          <div class="thanks" id="thanks" hidden>
+            <h3>Thank you.</h3>
+            <p id="thanksText"></p>
+            <button type="button" class="btn btn-ghost" id="startOver">Start over</button>
+          </div>
+        </div>
+        <div class="side-stack">
+          <div class="side-card">
+            <span class="tag soon">Coming soon</span>
+            <h3>Sponsor a scholar</h3>
+            <p>Fund one student's full year of tuition and follow their progress. The sign-up is being built.</p>
+          </div>
+          <div class="side-card">
+            <span class="tag ready">Ready now</span>
+            <h3>Spread the word</h3>
+            <p>Share the page, follow our channels as they go live, and tell one person Sister Bruna's story. Word of mouth is still our best fundraiser.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="linktree" data-title="Link Tree">
+    <div class="wrap tree-grid">
+      <div>
+        <span class="eyebrow">Stay connected</span>
+        <h2>Every channel, one link.</h2>
+        <p class="lede" style="margin-top:14px">This is the link tree for our bios on Facebook, Instagram and YouTube. Tap a button on the phone to see how it behaves.</p>
+        <div class="contact-list">
+          <div class="contact-row"><span>Email</span><span><a href="mailto:riseandlead.info@gmail.com">riseandlead.info@gmail.com</a></span></div>
+        </div>
+      </div>
+      <div>
+        <div class="phone">
+          <div class="avatar"><img src="avatar.jpg" alt="Rise &amp; Lead emblem"></div>
+          <div class="t-name">Rise &amp; Lead</div>
+          <div class="t-handle">@RiseAndLeadScholarshipFund (proposed)</div>
+          <p class="t-bio">Paying tuition for bright students in Haiti. Edikasyon se kle siksè.</p>
+          <div class="links-col" id="links">
+            <button type="button" class="tl primary" data-msg="the donation page">Donate <small>demo</small></button>
+            <button type="button" class="tl" data-msg="the website">Our website <small>demo</small></button>
+            <button type="button" class="tl" data-msg="our Facebook page">Facebook <small>soon</small></button>
+            <button type="button" class="tl" data-msg="our Instagram profile">Instagram <small>soon</small></button>
+            <button type="button" class="tl" data-msg="our YouTube channel">YouTube <small>soon</small></button>
+            <button type="button" class="tl" data-msg="the contact page">Contact us <small>demo</small></button>
+          </div>
+        </div>
+        <p class="toast" id="toast" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="motto">Rise &amp; Lead</p>
+    <p>Sister Marie Bruna Boucard Scholarship Fund Inc. is a registered 501(c)(3) nonprofit organization.<br>Demo version with sample content for presentation.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  /* ---------- section rail + arrow-key navigation ---------- */
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main > section'));
+  var rail = document.getElementById('rail');
+  var activeIdx = 0;
+  var railBtns = sections.map(function(sec, i){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', sec.getAttribute('data-title'));
+    b.title = sec.getAttribute('data-title');
+    b.addEventListener('click', function(){ goTo(i); });
+    rail.appendChild(b);
+    return b;
+  });
+  function setActive(i){
+    activeIdx = i;
+    railBtns.forEach(function(b, j){
+      if (j === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+    });
+  }
+  function goTo(i){
+    i = Math.max(0, Math.min(sections.length - 1, i));
+    sections[i].scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    setActive(i);
+  }
+  setActive(0);
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) setActive(sections.indexOf(e.target));
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(function(s){ io.observe(s); });
+  }
+  document.addEventListener('keydown', function(e){
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    var t = e.target;
+    if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+    if (e.key === 'ArrowRight'){ e.preventDefault(); goTo(activeIdx + 1); }
+    else if (e.key === 'ArrowLeft'){ e.preventDefault(); goTo(activeIdx - 1); }
+  });
+
+  /* ---------- scholar gallery ---------- */
+  var slides = Array.prototype.slice.call(document.querySelectorAll('#stage img.slide'));
+  var thumbsWrap = document.getElementById('thumbs');
+  var countEl = document.getElementById('gCount');
+  var playBtn = document.getElementById('gPlay');
+  var gallery = document.getElementById('gallery');
+  var cur = 0, timer = null, playing = !reduced, hovering = false;
+  var thumbBtns = slides.map(function(img, i){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Show scholar photo ' + (i + 1));
+    var t = document.createElement('img');
+    t.src = img.getAttribute('src');
+    t.alt = '';
+    b.appendChild(t);
+    b.addEventListener('click', function(){ show(i); restart(); });
+    thumbsWrap.appendChild(b);
+    return b;
+  });
+  function show(i){
+    cur = (i + slides.length) % slides.length;
+    slides.forEach(function(s, j){ s.classList.toggle('on', j === cur); });
+    thumbBtns.forEach(function(b, j){
+      if (j === cur) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+    });
+    countEl.textContent = 'Scholar ' + (cur + 1) + ' of ' + slides.length;
+  }
+  function stop(){ if (timer){ clearInterval(timer); timer = null; } }
+  function start(){ stop(); if (playing && !hovering) timer = setInterval(function(){ show(cur + 1); }, 4500); }
+  function restart(){ start(); }
+  function renderPlay(){
+    playBtn.textContent = playing ? 'Pause' : 'Play';
+    playBtn.setAttribute('aria-pressed', playing ? 'false' : 'true');
+  }
+  document.getElementById('gPrev').addEventListener('click', function(){ show(cur - 1); restart(); });
+  document.getElementById('gNext').addEventListener('click', function(){ show(cur + 1); restart(); });
+  playBtn.addEventListener('click', function(){ playing = !playing; renderPlay(); start(); });
+  gallery.addEventListener('mouseenter', function(){ hovering = true; stop(); });
+  gallery.addEventListener('mouseleave', function(){ hovering = false; start(); });
+  show(0); renderPlay(); start();
+
+  /* ---------- donation demo ---------- */
+  var form = document.getElementById('donateForm');
+  var thanks = document.getElementById('thanks');
+  var otherWrap = document.getElementById('otherWrap');
+  var otherAmt = document.getElementById('otherAmt');
+  var amtError = document.getElementById('amtError');
+  var summary = document.getElementById('summary');
+  var giveBtn = document.getElementById('giveBtn');
+  var fmt = function(n){
+    try { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2, minimumFractionDigits: (n % 1 === 0 ? 0 : 2) }).format(n); }
+    catch (err){ return '$' + n; }
+  };
+  function chosen(name){
+    var el = form.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '';
+  }
+  function amount(){
+    var v = chosen('amt');
+    if (v === 'other'){
+      var n = parseFloat(otherAmt.value);
+      return (isFinite(n) && n >= 1) ? Math.round(n * 100) / 100 : NaN;
+    }
+    return parseFloat(v);
+  }
+  function refresh(){
+    var isOther = chosen('amt') === 'other';
+    otherWrap.hidden = !isOther;
+    var a = amount();
+    if (isNaN(a)){
+      summary.textContent = 'Choose an amount to continue.';
+      giveBtn.textContent = 'Give (demo)';
+    } else {
+      summary.textContent = 'You are giving ' + fmt(a) + ' ' + chosen('freq') + '.';
+      giveBtn.textContent = 'Give ' + fmt(a) + ' (demo)';
+      amtError.hidden = true;
+    }
+  }
+  form.addEventListener('change', refresh);
+  otherAmt.addEventListener('input', refresh);
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var a = amount();
+    if (isNaN(a)){
+      amtError.hidden = false;
+      if (chosen('amt') === 'other') otherAmt.focus();
+      return;
+    }
+    document.getElementById('thanksText').textContent =
+      'This is a demo. A ' + fmt(a) + ' ' + chosen('freq') + ' gift would be confirmed here. No payment was taken and nothing was saved.';
+    form.hidden = true;
+    thanks.hidden = false;
+  });
+  document.getElementById('startOver').addEventListener('click', function(){
+    thanks.hidden = true;
+    form.hidden = false;
+    refresh();
+  });
+  refresh();
+
+  /* ---------- link tree toast ---------- */
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
+  document.getElementById('links').addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('.tl') : null;
+    if (!b) return;
+    toast.textContent = 'Demo: this button would open ' + b.getAttribute('data-msg') + '.';
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.textContent = ''; }, 3500);
+  });
+})();
+</script>
+
+</body></html>
