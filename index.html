@@ -374,12 +374,24 @@
     .thumbs{grid-template-columns:repeat(5, minmax(0,1fr));gap:5px;}
     .portrait .frame{width:210px;height:210px;}
   }
+  .donate-btn{
+    display:inline-block;
+    background:#141414;
+    color:#ece0c8;
+    font:700 1.15rem system-ui,sans-serif;
+    padding:16px 32px;
+    border-radius:10px;
+    text-decoration:none;
+  }
+  .donate-btn:hover{background:#be202c}
+  .donate-btn:focus-visible{outline:3px solid #be202c;outline-offset:3px}
+  a.tl{text-decoration:none;}
 </style>
 
 <div class="demo-strip">
   <div class="wrap">
     <strong>Demo preview</strong>
-    <span>Sample version for presentation. The donation flow and link tree are mock-ups, and no payment is taken.</span>
+    <span>Sample version for presentation. Some link tree buttons are placeholders until those channels go live.</span>
     <span class="hint">Tip: press the left and right arrow keys to move between sections.</span>
   </div>
 </div>
@@ -413,7 +425,7 @@
         <h1>Rise and <em>Lead</em>.</h1>
         <p class="lede">We pay the tuition of bright students in Haiti whose families can't. The fund started with a $1,000 gift in memory of one educator who never stopped believing in her students. It hasn't stopped growing since.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="#give">Try the donation demo</a>
+          <a class="btn btn-primary" href="#give">Donate</a>
           <a class="btn btn-ghost" href="#linktree">See the link tree</a>
         </div>
       </div>
@@ -533,44 +545,15 @@
       <div class="section-head">
         <span class="eyebrow">Get involved</span>
         <h2>Three ways to help a student rise.</h2>
-        <p>Try the donation flow below. It shows how giving will feel on the live site. Nothing is charged or saved.</p>
+        <p>Every gift goes straight to tuition for a student in Haiti.</p>
       </div>
       <div class="give-grid">
         <div class="panel" id="donatePanel">
-          <form id="donateForm" novalidate>
-            <h3>Donate</h3>
-            <p class="sub">Sample giving levels for this demo. Final amounts and the payment provider are still to be chosen.</p>
-            <fieldset>
-              <legend>Frequency</legend>
-              <div class="chips">
-                <label class="chip"><input type="radio" name="freq" value="one time" checked><span>One time</span></label>
-                <label class="chip"><input type="radio" name="freq" value="monthly"><span>Monthly</span></label>
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend>Amount (USD)</legend>
-              <div class="chips">
-                <label class="chip"><input type="radio" name="amt" value="25"><span>$25</span></label>
-                <label class="chip"><input type="radio" name="amt" value="50" checked><span>$50</span></label>
-                <label class="chip"><input type="radio" name="amt" value="100"><span>$100</span></label>
-                <label class="chip"><input type="radio" name="amt" value="250"><span>$250</span></label>
-                <label class="chip"><input type="radio" name="amt" value="other"><span>Other</span></label>
-              </div>
-              <div class="other-wrap" id="otherWrap" hidden>
-                <label for="otherAmt">Amount $</label>
-                <input type="number" id="otherAmt" inputmode="decimal" min="1" step="1" placeholder="75">
-              </div>
-              <div class="error" id="amtError" role="alert" hidden>Enter an amount of $1 or more.</div>
-            </fieldset>
-            <p class="summary" id="summary" aria-live="polite"></p>
-            <button type="submit" class="btn btn-primary" id="giveBtn">Give (demo)</button>
-            <p class="fine">No card details are collected on this page.</p>
-          </form>
-          <div class="thanks" id="thanks" hidden>
-            <h3>Thank you.</h3>
-            <p id="thanksText"></p>
-            <button type="button" class="btn btn-ghost" id="startOver">Start over</button>
-          </div>
+          <h3>Donate</h3>
+          <p class="sub">Give through our Zeffy donation form. It opens in a new tab.</p>
+          <a class="donate-btn"
+             href="https://www.zeffy.com/en-US/donation-form/donate-to-change-lives-28446"
+             target="_blank" rel="noopener">Donate Now</a>
         </div>
         <div class="side-stack">
           <div class="side-card">
@@ -605,7 +588,7 @@
           <div class="t-handle">@RiseAndLeadScholarshipFund (proposed)</div>
           <p class="t-bio">Paying tuition for bright students in Haiti. Edikasyon se kle siksè.</p>
           <div class="links-col" id="links">
-            <button type="button" class="tl primary" data-msg="the donation page">Donate <small>demo</small></button>
+            <a class="tl primary" href="https://www.zeffy.com/en-US/donation-form/donate-to-change-lives-28446" target="_blank" rel="noopener">Donate</a>
             <button type="button" class="tl" data-msg="the website">Our website <small>demo</small></button>
             <button type="button" class="tl" data-msg="our Facebook page">Facebook <small>soon</small></button>
             <button type="button" class="tl" data-msg="our Instagram profile">Instagram <small>soon</small></button>
@@ -712,70 +695,11 @@
   gallery.addEventListener('mouseleave', function(){ hovering = false; start(); });
   show(0); renderPlay(); start();
 
-  /* ---------- donation demo ---------- */
-  var form = document.getElementById('donateForm');
-  var thanks = document.getElementById('thanks');
-  var otherWrap = document.getElementById('otherWrap');
-  var otherAmt = document.getElementById('otherAmt');
-  var amtError = document.getElementById('amtError');
-  var summary = document.getElementById('summary');
-  var giveBtn = document.getElementById('giveBtn');
-  var fmt = function(n){
-    try { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2, minimumFractionDigits: (n % 1 === 0 ? 0 : 2) }).format(n); }
-    catch (err){ return '$' + n; }
-  };
-  function chosen(name){
-    var el = form.querySelector('input[name="' + name + '"]:checked');
-    return el ? el.value : '';
-  }
-  function amount(){
-    var v = chosen('amt');
-    if (v === 'other'){
-      var n = parseFloat(otherAmt.value);
-      return (isFinite(n) && n >= 1) ? Math.round(n * 100) / 100 : NaN;
-    }
-    return parseFloat(v);
-  }
-  function refresh(){
-    var isOther = chosen('amt') === 'other';
-    otherWrap.hidden = !isOther;
-    var a = amount();
-    if (isNaN(a)){
-      summary.textContent = 'Choose an amount to continue.';
-      giveBtn.textContent = 'Give (demo)';
-    } else {
-      summary.textContent = 'You are giving ' + fmt(a) + ' ' + chosen('freq') + '.';
-      giveBtn.textContent = 'Give ' + fmt(a) + ' (demo)';
-      amtError.hidden = true;
-    }
-  }
-  form.addEventListener('change', refresh);
-  otherAmt.addEventListener('input', refresh);
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var a = amount();
-    if (isNaN(a)){
-      amtError.hidden = false;
-      if (chosen('amt') === 'other') otherAmt.focus();
-      return;
-    }
-    document.getElementById('thanksText').textContent =
-      'This is a demo. A ' + fmt(a) + ' ' + chosen('freq') + ' gift would be confirmed here. No payment was taken and nothing was saved.';
-    form.hidden = true;
-    thanks.hidden = false;
-  });
-  document.getElementById('startOver').addEventListener('click', function(){
-    thanks.hidden = true;
-    form.hidden = false;
-    refresh();
-  });
-  refresh();
-
   /* ---------- link tree toast ---------- */
   var toast = document.getElementById('toast');
   var toastTimer = null;
   document.getElementById('links').addEventListener('click', function(e){
-    var b = e.target.closest ? e.target.closest('.tl') : null;
+    var b = e.target.closest ? e.target.closest('button.tl') : null;
     if (!b) return;
     toast.textContent = 'Demo: this button would open ' + b.getAttribute('data-msg') + '.';
     if (toastTimer) clearTimeout(toastTimer);
